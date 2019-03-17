@@ -17,6 +17,20 @@
     background-color: grey;
 }
 
+.hidden-ship {
+    background-color: transparent;
+}
+
+.hit {
+    background-color: red;
+    pointer-events: none;
+}
+
+.miss {
+    background-color: lightblue;
+    pointer-events: none;
+}
+
 .container {
     margin: 0 auto;
 }

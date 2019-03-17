@@ -24,38 +24,50 @@ var Grid = function(name) {
     squares.forEach(function(element) {
         element.addEventListener('click', function() {
             element.classList.add('active');
+            attack(element);
         });
     });
 };
 
-Grid.prototype.attack = function() {
-    if (element.classList.contains('ship')) {
-        this.element.classList.add('hit');
-    } else {
-        this.element.classList.add('water');
-    };
-};
-
 Grid.prototype.randomShips = function() {
-    // var portaAviao = new Ship('Porta-aviao', 5, document.getElementById('computador-0-0'));
-    // var navioTanque = new Ship('Navio-tanque', 4, document.getElementById('computador-1-0'));
-    // var contratorpedeiro = new Ship('Contratorpedeiro', 3, document.getElementById('computador-2-0'));
-    // var submarino = new Ship('Submarino', 2, document.getElementById('computador-3-0'));
-
     var name = this.name;
 
-    // var navios = [['Porta-aviao', 5], ['Navio-tanque', 4], ['Contratorpedeiro', 3], ['Submarino', 2]];
-    var navios = [['Porta-aviao', 5]]
+    var navios = [['Porta-aviao', 5], ['Navio-tanque', 4], ['Contratorpedeiro', 3], ['Submarino', 2]];
     navios.forEach(function(e) {
         var check = false;
-        // while (check == false) {
-            var position = document.getElementById(name + '-' + (Math.floor(Math.random() * 10)) + '-' + (Math.floor(Math.random() * 10)));
+        while (check == false) {
+            var randomNumber1 = Math.floor(Math.random() * 10);
+            var randomNumber2 = Math.floor(Math.random() * 10);
+            var position = document.getElementById(name + '-' + randomNumber1 + '-' + randomNumber2);
             var directions = ['Right', 'Left', 'Up', 'Down'];
             for (var i = 0; i < directions.length; i++) {
                 var arrayPosition = Math.floor(Math.random() * directions.length);
                 var navio = new Ship(e[0], e[1], position);
                 check = navio.place(directions[arrayPosition]);
+                if (check == true) {
+                    break;
+                }
+                directions.splice(directions[arrayPosition], 1);
             };
-        // };
+        };
     });
 };
+
+Grid.prototype.computerShips = function() {
+    var ships = document.querySelectorAll('.ship');
+    console.log(ships);
+    ships.forEach(function(element) {
+        element.classList.add('hidden-ship');
+    });
+}
+
+function attack (element) {
+    if (element.classList.contains('ship')) {
+        console.log('Hit a ship');
+        element.classList.add('hit');
+        element.classList.remove('ship');
+    } else {
+        console.log('Missed a ship');
+        element.classList.add('miss');
+    }
+}

@@ -14,30 +14,34 @@ Ship.prototype.place = function(direction) {
         return false;
     } else if (direction == 'Right') {
         for (var i = 0; i < this.size; i++) {
-            var square = document.getElementById(id[0]+'-'+id[1]+'-'+(i+parseInt(id[2])));
+            var square = document.getElementById(id[0]+'-'+id[1]+'-'+(parseInt(id[2])+i));
             square.classList.add('ship');
             square.setAttribute('data-position', 1);
+            console.log('pintando right:', id[0]+'-'+id[1]+'-'+(parseInt(id[2])+i))
         }
         return true;
     } else if (direction == 'Left') {
         for (var i = 0; i < this.size; i++) {
-            var square = document.getElementById(id[0]+'-'+id[1]+'-'+(i-parseInt(id[1])));
+            var square = document.getElementById(id[0]+'-'+id[1]+'-'+(parseInt(id[2])-i));
             square.classList.add('ship');
             square.setAttribute('data-position', 1);
+            console.log('pintando left:', id[0]+'-'+id[1]+'-'+(parseInt(id[2])-i))
         }
         return true;
     } else if (direction == 'Up') {
         for (var i = 0; i < this.size; i++) {
-            var square = document.getElementById(id[0]+'-'+(parseInt(id[1])+i)+'-'+id[2]);
+            var square = document.getElementById(id[0]+'-'+(parseInt(id[1])-i)+'-'+id[2]);
             square.classList.add('ship');
             square.setAttribute('data-position', 1);
+            console.log('pintando up', id[0]+'-'+(parseInt(id[1])-i)+'-'+id[2])
         }
         return true;
     } else if (direction == 'Down') {
         for (var i = 0; i < this.size; i++) {
-            var square = document.getElementById(id[0]+'-'+(parseInt(id[1])-i)+'-'+id[2]);
+            var square = document.getElementById(id[0]+'-'+(parseInt(id[1])+i)+'-'+id[2]);
             square.classList.add('ship');
             square.setAttribute('data-position', 1);
+            console.log('pintando down', id[0]+'-'+(parseInt(id[1])+i)+'-'+id[2])
         }
         return true;
     }
@@ -45,24 +49,48 @@ Ship.prototype.place = function(direction) {
 
 function checkPlacement (direction, size, element) {
     for (var i = 0; i < size; i++) {
+        console.log('direção: ', direction, 'element: ', element, 'i: ', i);
         var elementId = element.id;
         elementId = elementId.split('-');
         if (direction == 'Right') {
-            if (element.classList.contains('ship') || elementId[2]+i > 9) {
+            console.log(parseInt(elementId[2])+i);
+            if (parseInt(elementId[2])+i <= 9) {
+                if (document.getElementById(elementId[0]+'-'+elementId[1]+'-'+(parseInt(elementId[2])+i)).classList.contains('ship')) {
+                    return false;
+                }
+            } else {
                 return false;
             }
         } else if (direction == 'Left') {
-            if (element.classList.contains('ship') || elementId[2]-i < 0) {
+            console.log(parseInt(elementId[2])-i);
+            if (parseInt(elementId[2])-i >= 0) {
+                if (document.getElementById(elementId[0]+'-'+elementId[1]+'-'+(parseInt(elementId[2])-i)).classList.contains('ship')) {
+                    return false;
+                }
+            } else {
                 return false;
             }
         } else if (direction == 'Up') {
-            if (element.classList.contains('ship') || elementId[1]-i < 0) {
+            if (parseInt(elementId[1])-i >= 0) {
+                console.log(parseInt(elementId[1])-i);
+                if (document.getElementById(elementId[0]+'-'+(parseInt(elementId[1])-i)+'-'+elementId[2]).classList.contains('ship')) {
+                    return false;
+                }
+            } else {
                 return false;
             }
         } else if (direction == 'Down') {
-            if (element.classList.contains('ship') || elementId[1]+i > 9) {
+            if (parseInt(elementId[1])+i <= 9) {
+                console.log(parseInt(elementId[1])+i);
+                if (document.getElementById(elementId[0]+'-'+(parseInt(elementId[1])+i)+'-'+elementId[2]).classList.contains('ship')) {
+                    return false;
+                }
+            } else {
                 return false;
             }
+        } else {
+            return false;
         }
     }
+    return true;
 }

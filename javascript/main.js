@@ -9,6 +9,7 @@ window.addEventListener('load', function() {
     var player = new Grid('player');
     var computador = new Grid('computador');
     computador.randomShips();
+    computador.computerShips();
 
     var markedSpaces = document.querySelectorAll('[data-position="1"]');
 
