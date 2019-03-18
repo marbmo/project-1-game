@@ -7,6 +7,7 @@ var player2AttackMatrix = [[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,
 
 window.addEventListener('load', function() {
     var player = new Grid('player');
+    player.randomShips();
     var computador = new Grid('computador');
     computador.randomShips();
     computador.computerShips();

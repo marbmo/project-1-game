@@ -17,7 +17,6 @@ Ship.prototype.place = function(direction) {
             var square = document.getElementById(id[0]+'-'+id[1]+'-'+(parseInt(id[2])+i));
             square.classList.add('ship');
             square.setAttribute('data-position', 1);
-            console.log('pintando right:', id[0]+'-'+id[1]+'-'+(parseInt(id[2])+i))
         }
         return true;
     } else if (direction == 'Left') {
@@ -25,7 +24,6 @@ Ship.prototype.place = function(direction) {
             var square = document.getElementById(id[0]+'-'+id[1]+'-'+(parseInt(id[2])-i));
             square.classList.add('ship');
             square.setAttribute('data-position', 1);
-            console.log('pintando left:', id[0]+'-'+id[1]+'-'+(parseInt(id[2])-i))
         }
         return true;
     } else if (direction == 'Up') {
@@ -33,7 +31,6 @@ Ship.prototype.place = function(direction) {
             var square = document.getElementById(id[0]+'-'+(parseInt(id[1])-i)+'-'+id[2]);
             square.classList.add('ship');
             square.setAttribute('data-position', 1);
-            console.log('pintando up', id[0]+'-'+(parseInt(id[1])-i)+'-'+id[2])
         }
         return true;
     } else if (direction == 'Down') {
@@ -41,7 +38,6 @@ Ship.prototype.place = function(direction) {
             var square = document.getElementById(id[0]+'-'+(parseInt(id[1])+i)+'-'+id[2]);
             square.classList.add('ship');
             square.setAttribute('data-position', 1);
-            console.log('pintando down', id[0]+'-'+(parseInt(id[1])+i)+'-'+id[2])
         }
         return true;
     }
@@ -49,11 +45,9 @@ Ship.prototype.place = function(direction) {
 
 function checkPlacement (direction, size, element) {
     for (var i = 0; i < size; i++) {
-        console.log('direção: ', direction, 'element: ', element, 'i: ', i);
         var elementId = element.id;
         elementId = elementId.split('-');
         if (direction == 'Right') {
-            console.log(parseInt(elementId[2])+i);
             if (parseInt(elementId[2])+i <= 9) {
                 if (document.getElementById(elementId[0]+'-'+elementId[1]+'-'+(parseInt(elementId[2])+i)).classList.contains('ship')) {
                     return false;
@@ -62,7 +56,6 @@ function checkPlacement (direction, size, element) {
                 return false;
             }
         } else if (direction == 'Left') {
-            console.log(parseInt(elementId[2])-i);
             if (parseInt(elementId[2])-i >= 0) {
                 if (document.getElementById(elementId[0]+'-'+elementId[1]+'-'+(parseInt(elementId[2])-i)).classList.contains('ship')) {
                     return false;
@@ -72,7 +65,6 @@ function checkPlacement (direction, size, element) {
             }
         } else if (direction == 'Up') {
             if (parseInt(elementId[1])-i >= 0) {
-                console.log(parseInt(elementId[1])-i);
                 if (document.getElementById(elementId[0]+'-'+(parseInt(elementId[1])-i)+'-'+elementId[2]).classList.contains('ship')) {
                     return false;
                 }
@@ -81,7 +73,6 @@ function checkPlacement (direction, size, element) {
             }
         } else if (direction == 'Down') {
             if (parseInt(elementId[1])+i <= 9) {
-                console.log(parseInt(elementId[1])+i);
                 if (document.getElementById(elementId[0]+'-'+(parseInt(elementId[1])+i)+'-'+elementId[2]).classList.contains('ship')) {
                     return false;
                 }

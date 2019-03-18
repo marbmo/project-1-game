@@ -55,19 +55,49 @@ Grid.prototype.randomShips = function() {
 
 Grid.prototype.computerShips = function() {
     var ships = document.querySelectorAll('.ship');
-    console.log(ships);
     ships.forEach(function(element) {
-        element.classList.add('hidden-ship');
+        if (element.classList.contains('computador')) {
+            element.classList.add('hidden-ship');
+        }
     });
 }
 
 function attack (element) {
-    if (element.classList.contains('ship')) {
-        console.log('Hit a ship');
-        element.classList.add('hit');
-        element.classList.remove('ship');
-    } else {
-        console.log('Missed a ship');
-        element.classList.add('miss');
+    var turn = 'player';
+    var computerGrid = document.querySelectorAll('.computador');
+
+    if(turn == 'player' && element.classList.contains('computador')) {
+        if (element.classList.contains('ship')) {
+            console.log('Hit a ship');
+            element.classList.add('hit');
+            element.classList.remove('ship');
+            turn = 'computer';
+        } else {
+            console.log('Missed a ship');
+            element.classList.add('miss');
+            turn = 'computer';
+        }
+        computerGrid.forEach(function(element) {
+            element.classList.add('no-click');
+        });
+    }
+
+    var playerGrid = document.querySelectorAll('.player');
+
+    if (turn == 'computer') {
+        var randomPosition = Math.floor(Math.random() * 100);
+        if (playerGrid[randomPosition].classList.contains('ship')) {
+            console.log('Computer hit a ship');
+            playerGrid[randomPosition].classList.add('hit');
+            playerGrid[randomPosition].classList.remove('ship');
+            turn = 'player';
+        } else {
+            console.log('Computer missed a ship');
+            playerGrid[randomPosition].classList.add('miss');
+            turn = 'player';
+        }
+        computerGrid.forEach(function(element) {
+            element.classList.remove('no-click');
+        });
     }
 }
