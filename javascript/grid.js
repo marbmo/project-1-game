@@ -4,6 +4,13 @@ var Grid = function(name) {
     var table = document.createElement('table');
     table.classList.add('container');
 
+    var th = document.createElement('th');
+    th.classList.add('table-head');
+    th.innerText = name + "'s grid"
+    th.setAttribute('colspan', 10);
+
+    table.appendChild(th);
+
     var section = document.getElementById('battleship');
     section.appendChild(table);
     
@@ -62,6 +69,9 @@ Grid.prototype.computerShips = function() {
     });
 }
 
+var playerHits = 0;
+var computerHits = 0;
+
 function attack (element) {
     var turn = 'player';
     var computerGrid = document.querySelectorAll('.computador');
@@ -72,6 +82,7 @@ function attack (element) {
             element.classList.add('hit');
             element.classList.remove('ship');
             turn = 'computer';
+            playerHits++;
         } else {
             console.log('Missed a ship');
             element.classList.add('miss');
@@ -82,22 +93,68 @@ function attack (element) {
         });
     }
 
+    if (playerHits == 14) {
+        for (var i = 0; i < computerGrid.length; i++) {
+            if (computerGrid[i].classList.contains('no-click')) {
+                continue;
+            }
+            computerGrid[i].classList.add('no-click');
+        }
+        return alert('Player wins!');
+    }
+
     var playerGrid = document.querySelectorAll('.player');
 
     if (turn == 'computer') {
-        var randomPosition = Math.floor(Math.random() * 100);
-        if (playerGrid[randomPosition].classList.contains('ship')) {
-            console.log('Computer hit a ship');
-            playerGrid[randomPosition].classList.add('hit');
-            playerGrid[randomPosition].classList.remove('ship');
-            turn = 'player';
-        } else {
-            console.log('Computer missed a ship');
-            playerGrid[randomPosition].classList.add('miss');
-            turn = 'player';
-        }
-        computerGrid.forEach(function(element) {
-            element.classList.remove('no-click');
+        setTimeout(function() {
+            do {
+                var randomPosition = Math.floor(Math.random() * 100);
+            } while (playerGrid[randomPosition].classList.contains('hit') || playerGrid[randomPosition].classList.contains('miss'));
+
+            element = playerGrid.item(playerGrid[randomPosition]);
+            console.log('element ', element, 'id ', element.id);
+            computerIntelligence(element);
+
+            if (playerGrid[randomPosition].classList.contains('ship')) {
+                console.log('Computer hit a ship');
+                playerGrid[randomPosition].classList.add('hit');
+                playerGrid[randomPosition].classList.remove('ship');
+                turn = 'player';
+                computerHits++;
+            } else {
+                console.log('Computer missed a ship');
+                playerGrid[randomPosition].classList.add('miss');
+                turn = 'player';
+            }
+            computerGrid.forEach(function(element) {
+                element.classList.remove('no-click');
         });
+        }, 1000);
+    }
+
+    if (computerHits == 14) {
+        for (var i = 0; i < computerGrid.length; i++) {
+            if (computerGrid[i].classList.contains('no-click')) {
+                continue;
+            }
+            computerGrid[i].classList.add('no-click');
+        }
+        return alert('Computer wins!');
     }
 }
+
+function computerIntelligence (element) {
+    var hit = true;
+    if (hit == true) {
+        var directions = ['Right', 'Left', 'Up', 'Down'];
+        elementId = element.id;
+        elementId = elementId.split('-');
+        var secondHit = false;
+        // if (secondHit == false) {
+    
+        // } else {
+    
+        // }
+    }
+}
+
