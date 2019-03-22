@@ -5,7 +5,7 @@
 }
 
 body {
-    background: url(./resources/battleship.jpg) no-repeat;
+    background: url(https://github.com/marbmo/project-1-game/tree/master/resources/battleship.jpg) no-repeat;
 }
 
 #start-game h1 {
@@ -103,12 +103,12 @@ table {
 }
 
 .hit {
-    background: url(./resources/explosion.jpg) no-repeat;
+    background: url(https://github.com/marbmo/project-1-game/tree/master/resources/explosion.jpg) no-repeat;
     pointer-events: none;
 }
 
 .miss {
-    background: url(./resources/water.jpg) no-repeat;
+    background: url(https://github.com/marbmo/project-1-game/tree/master/resources/water.jpg) no-repeat;
     pointer-events: none;
 }
 
