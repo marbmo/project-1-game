@@ -14,9 +14,35 @@
 </head>
 <body>
 
-    <section id="battleship"></section>
+    <section id="start-game">
+        <h1>BATALHA NAVAL</h1>
+        <button id="start-new-game" class="start-new-game">Start new game!</button>
+    </section>
 
-    
+    <section id="battleship" class="not-active">
+        <div id="grid"></div>
+        <div id="instructions">
+            <h2>Como Jogar:</h2>
+            <ol>
+                <li>As peças são posicionadas aleatoriamente nos dois grids.</li>
+                <li>O jogo funciona por turno, começando pelo <strong>Jogador</strong> e depois indo para o <strong>Computador</strong>.</li>
+                <li>Em cada turno você vai atacar uma das posições do grid do <strong>Computador</strong>.</li>
+                <li>Caso acerte um navio, o quadrado se tornará uma <strong>explosão</strong>, caso erre, o quadrado se tornará <strong>água</strong>.</li>
+                <li>O Vencedor será aquele que acertar todos os navios do oponente primeiro!</li>
+            </ol>
+            <h2>Boa sorte e bom jogo!</h2>
+        </div>
+    </section>
+
+    <section id="player-win" class="not-active">
+        <h2 class="header-text">You win!</h2>
+        <button class="new-game">Start new game!</button>
+    </section>
+
+    <section id="player-lose" class="not-active">
+        <h2 class="header-text">You lose!</h2>
+        <button class="new-game">Try again!</button>
+    </section>
     
 </body>
 

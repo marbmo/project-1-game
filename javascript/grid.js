@@ -11,7 +11,7 @@ var Grid = function(name) {
 
     table.appendChild(th);
 
-    var section = document.getElementById('battleship');
+    var section = document.getElementById('grid');
     section.appendChild(table);
     
     for (var i = 0; i < 10; i++) {
@@ -100,7 +100,8 @@ function attack (element) {
             }
             computerGrid[i].classList.add('no-click');
         }
-        return alert('Player wins!');
+        document.getElementById('battleship').remove();
+        document.getElementById('player-win').classList.remove('not-active');
     }
 
     var playerGrid = document.querySelectorAll('.player');
@@ -111,20 +112,19 @@ function attack (element) {
                 var randomPosition = Math.floor(Math.random() * 100);
             } while (playerGrid[randomPosition].classList.contains('hit') || playerGrid[randomPosition].classList.contains('miss'));
 
-            element = playerGrid.item(playerGrid[randomPosition]);
-            console.log('element ', element, 'id ', element.id);
-            computerIntelligence(element);
-
             if (playerGrid[randomPosition].classList.contains('ship')) {
                 console.log('Computer hit a ship');
                 playerGrid[randomPosition].classList.add('hit');
                 playerGrid[randomPosition].classList.remove('ship');
                 turn = 'player';
                 computerHits++;
+                element = playerGrid.item(playerGrid[randomPosition]);
+                hit = true;
             } else {
                 console.log('Computer missed a ship');
                 playerGrid[randomPosition].classList.add('miss');
                 turn = 'player';
+                hit = false;
             }
             computerGrid.forEach(function(element) {
                 element.classList.remove('no-click');
@@ -139,22 +139,7 @@ function attack (element) {
             }
             computerGrid[i].classList.add('no-click');
         }
-        return alert('Computer wins!');
+        document.getElementById('battleship').remove();
+        document.getElementById('computer-win').classList.remove('not-active');
     }
 }
-
-function computerIntelligence (element) {
-    var hit = true;
-    if (hit == true) {
-        var directions = ['Right', 'Left', 'Up', 'Down'];
-        elementId = element.id;
-        elementId = elementId.split('-');
-        var secondHit = false;
-        // if (secondHit == false) {
-    
-        // } else {
-    
-        // }
-    }
-}
-
